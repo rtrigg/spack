@@ -1,8 +1,12 @@
 from spack.package import *
 
-
 class PyCmd2(PythonPackage):
     """cmd2 is a tool for building interactive command line applications in Python."""
+
+    import platform
+
+    print(f"Spack platform: {platform.system()}")
+
 
     homepage = "https://cmd2.readthedocs.io/en/stable/"
     pypi = "cmd2/cmd2-2.5.7.tar.gz"
@@ -31,9 +35,9 @@ class PyCmd2(PythonPackage):
     depends_on("py-pytest-cov", type=("build","run"), when="+test")
     depends_on("py-pytest-mock", type=("build","run"), when="+test")
 
-    depends_on("py-pyreadline", when="platform=windows +readline", type="run")
-    depends_on("readline", when="platform=darwin +readline", type="run")
-    depends_on("readline", when="platform=linux +readline", type="run")
+    depends_on("py-pyreadline", when="platform=windows +readline", type=("link", "run"))
+    depends_on("readline", when="platform=darwin", type=("link", "run"))
+    depends_on("readline", when="platform=linux +readline", type=("link", "run"))
 
     @run_after("install")
     @on_package_attributes(run_tests=True)
