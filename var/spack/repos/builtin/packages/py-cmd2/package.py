@@ -3,11 +3,6 @@ from spack.package import *
 class PyCmd2(PythonPackage):
     """cmd2 is a tool for building interactive command line applications in Python."""
 
-    import platform
-
-    print(f"Spack platform: {platform.system()}")
-
-
     homepage = "https://cmd2.readthedocs.io/en/stable/"
     pypi = "cmd2/cmd2-2.5.7.tar.gz"
 
