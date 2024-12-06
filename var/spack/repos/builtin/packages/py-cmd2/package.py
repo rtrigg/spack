@@ -35,9 +35,9 @@ class PyCmd2(PythonPackage):
     depends_on("py-pytest-cov", type=("build","run"), when="+test")
     depends_on("py-pytest-mock", type=("build","run"), when="+test")
 
-    depends_on("py-pyreadline", when="platform=windows +readline", type=("link", "run"))
-    depends_on("readline", when="platform=darwin", type=("link", "run"))
-    depends_on("readline", when="platform=linux +readline", type=("link", "run"))
+    depends_on("py-pyreadline", when="platform=windows +readline", type=("build", "run"))
+    depends_on("readline", when="platform=darwin", type=("build", "run"))
+    depends_on("readline", when="platform=linux +readline", type=("build", "run"))
 
     @run_after("install")
     @on_package_attributes(run_tests=True)
