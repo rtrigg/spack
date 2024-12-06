@@ -19,17 +19,21 @@ class PyCmd2(PythonPackage):
     version("2.3.3", sha256="750d7eb04d55c3bc2a413e191bc177856f388102de47d11f2210a35266543640")
 
     variant("test", default=False, description="Run package's test suite")
+    variant("readline", default=True, description="Enable support for readline functionality, like tab completion")
 
     depends_on("py-setuptools", type="build")
     depends_on("py-setuptools-scm@8:", type="build")
 
     depends_on("py-pyperclip", type=("build", "run"))
     depends_on("py-wcwidth", type=("build", "run"))
-    depends_on("readline", when="platform=darwin", type=("build", "run"))
 
     depends_on("py-pytest", type=("build", "run"), when="+test")
     depends_on("py-pytest-cov", type=("build","run"), when="+test")
     depends_on("py-pytest-mock", type=("build","run"), when="+test")
+
+    depends_on("py-pyreadline", when="platform=windows +readline", type="run")
+    depends_on("readline", when="platform=darwin +readline", type="run")
+    depends_on("readline", when="platform=linux +readline", type="run")
 
     @run_after("install")
     @on_package_attributes(run_tests=True)
